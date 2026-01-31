@@ -10,15 +10,24 @@ a {
 }
 
 .element {
-  width: 120px;
-  height: 160px;
+  width: 160px;
+  height: 200px;
+
   box-shadow: 0px 0px 12px rgba(0,255,255,0.5);
   border: 1px solid rgba(127,255,255,0.25);
+
   font-family: Helvetica, sans-serif;
   text-align: center;
-  line-height: normal;
   cursor: default;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  padding: 10px;
 }
+
 
 .element:hover {
   box-shadow: 0px 0px 12px rgba(0,255,255,0.75);
@@ -33,25 +42,27 @@ a {
     color: rgba(127,255,255,0.75);
   }
 
-  .element .symbol {
-    position: absolute;
-    top: 40px;
-    left: 0px;
-    right: 0px;
-    font-size: 60px;
-    font-weight: bold;
-    color: rgba(255,255,255,0.75);
-    text-shadow: 0 0 10px rgba(0,255,255,0.95);
-  }
+.element .symbol {
+  font-size: 14px;
+  font-weight: bold;
+  color: rgba(255,255,255,0.9);
 
-  .element .details {
-    position: absolute;
-    bottom: 15px;
-    left: 0px;
-    right: 0px;
-    font-size: 12px;
-    color: rgba(127,255,255,0.75);
-  }
+  margin-top: 6px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 140px;
+}
+
+
+.element .details {
+  font-size: 11px;
+  color: rgba(200,255,255,0.85);
+  margin-top: 6px;
+  line-height: 1.4;
+}
+
 
 button {
   color: rgba(127,255,255,0.75);
@@ -70,3 +81,22 @@ button:active {
   color: #000000;
   background-color: rgba(0,255,255,0.75);
 }
+
+.avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+
+  border: 2px solid rgba(0,255,255,0.6);
+  box-shadow: 0 0 10px rgba(0,255,255,0.6);
+
+  margin-top: 4px;
+}
+
+.element:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 20px rgba(0,255,255,0.9);
+  border-color: rgba(0,255,255,0.9);
+}
+

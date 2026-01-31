@@ -4,6 +4,7 @@ import { TrackballControls } from "./threejs/TrackballControls.js";
 import {OrbitControls} from "./threejs/OrbitControls.js";
 import TWEEN from "./threejs/tween.module.min.js";
 
+/*
 const table = [
   'H', 'Hydrogen', '1.00794', 1, 1,
   'He', 'Helium', '4.002602', 18, 1,
@@ -124,7 +125,7 @@ const table = [
   'Ts', 'Tennessine', '(294)', 17, 7,
   'Og', 'Oganesson', '(294)', 18, 7
 ];
-
+*/
 
 
 let camera, scene, renderer;
@@ -133,9 +134,39 @@ let controls;
 const objects = [];
 const targets = { table: [], sphere: [], helix: [], grid: [] };
 
-init();
-animate();
+const SHEET_ID = "1HpvXoN-YGaxngXqa1BKdthDzvhFmSnC42qixfQW78YQ";
+const SHEET_NAME = "data";
 
+async function fetchPeopleData() {
+  const url =
+    `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}`;
+
+  const res = await fetch(url);
+  const text = await res.text();
+  const json = JSON.parse(text.substring(47).slice(0, -2));
+
+  return json.table.rows.map(r => ({
+    name: r.c[0]?.v ?? "",
+    photo: r.c[1]?.v ?? "",
+    age: r.c[2]?.v ?? "",
+    country: r.c[3]?.v ?? "",
+    interest: r.c[4]?.v ?? "",
+    netWorth: Number(
+      String(r.c[5]?.v ?? "0").replace(/[$,]/g, "")
+    )
+  }));
+}
+
+
+//init();
+//animate();
+
+fetchPeopleData().then(people => {
+  initPeople(people);
+  animate();
+});
+
+/*
 function init() {
 
   camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 10000 );
@@ -288,6 +319,136 @@ function init() {
   window.addEventListener( 'resize', onWindowResize );
 
 }
+*/
+
+function initPeople(people) {
+
+  camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 10000);
+  camera.position.z = 3000;
+
+  scene = new THREE.Scene();
+
+  const cols = 20; // people per row
+
+  people.forEach((person, i) => {
+
+    const element = document.createElement("div");
+    element.className = "element";
+
+    element.innerHTML = `
+      <img src="${person.photo}"class="avatar">
+
+
+      <div class="symbol">${person.name.split(" ")[0]}</div>
+      <div class="details">
+        ${person.country} · ${person.age}<br>
+        ${person.interest}<br>
+        <b>$${person.netWorth.toLocaleString()}</b>
+      </div>
+    `;
+
+    // Color intensity by net worth
+    const intensity = Math.min(person.netWorth / 250000, 1);
+    element.style.backgroundColor =
+      `rgba(0,127,127,${0.25 + intensity * 0.6})`;
+
+    const cssObject = new CSS3DObject(element);
+    cssObject.position.set(
+      Math.random() * 4000 - 2000,
+      Math.random() * 4000 - 2000,
+      Math.random() * 4000 - 2000
+    );
+
+    scene.add(cssObject);
+    objects.push(cssObject);
+
+    // TABLE target (grid)
+    /*
+    const target = new THREE.Object3D();
+    target.position.x = (i % cols) * 190 - 700;
+    target.position.y = -(Math.floor(i / cols)) * 230 + 800;
+    targets.table.push(target);
+    */
+
+    // === PERIODIC TABLE POSITION (Net Worth Based) ===
+    const MAX_NET_WORTH = 400000; // adjust if needed
+
+    // Group (1–18) from Net Worth
+    const group = Math.min(
+      18,
+      Math.floor((person.netWorth / MAX_NET_WORTH) * 18) + 1
+    );
+
+    // Period (1–7) from index
+    const period = Math.min(
+      7,
+      Math.floor(i / 18) + 1
+    );
+
+    const target = new THREE.Object3D();
+
+    // EXACT periodic-table math (same as original three.js demo)
+    target.position.x = (group * 140) - 1330;
+    target.position.y = -(period * 180) + 990;
+    target.position.z = 0;
+
+    targets.table.push(target);
+
+      });
+
+      // === SPHERE ===
+      const vector = new THREE.Vector3();
+      for (let i = 0; i < objects.length; i++) {
+        const phi = Math.acos(-1 + (2 * i) / objects.length);
+        const theta = Math.sqrt(objects.length * Math.PI) * phi;
+
+        const obj = new THREE.Object3D();
+        obj.position.setFromSphericalCoords(800, phi, theta);
+        vector.copy(obj.position).multiplyScalar(2);
+        obj.lookAt(vector);
+        targets.sphere.push(obj);
+  }
+
+  // === HELIX ===
+  for (let i = 0; i < objects.length; i++) {
+    const theta = i * 0.175 + Math.PI;
+    const y = -(i * 8) + 450;
+
+    const obj = new THREE.Object3D();
+    obj.position.setFromCylindricalCoords(900, theta, y);
+    vector.set(obj.position.x * 2, obj.position.y, obj.position.z * 2);
+    obj.lookAt(vector);
+    targets.helix.push(obj);
+  }
+
+  // === GRID ===
+  for (let i = 0; i < objects.length; i++) {
+    const obj = new THREE.Object3D();
+    obj.position.x = ((i % 5) * 400) - 800;
+    obj.position.y = (-(Math.floor(i / 5) % 5) * 400) + 800;
+    obj.position.z = (Math.floor(i / 25)) * 1000 - 2000;
+    targets.grid.push(obj);
+  }
+
+  renderer = new CSS3DRenderer();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  document.getElementById("container").appendChild(renderer.domElement);
+
+  controls = new TrackballControls(camera, renderer.domElement);
+  controls.minDistance = 500;
+  controls.maxDistance = 6000;
+  controls.addEventListener("change", render);
+
+  document.getElementById("table").onclick = () => transform(targets.table, 2000);
+  document.getElementById("sphere").onclick = () => transform(targets.sphere, 2000);
+  document.getElementById("helix").onclick = () => transform(targets.helix, 2000);
+  document.getElementById("grid").onclick = () => transform(targets.grid, 2000);
+
+  transform(targets.table, 2000);
+
+  window.addEventListener("resize", onWindowResize);
+}
+
 
 function transform( targets, duration ) {
 
