@@ -138,8 +138,8 @@ function initPeople(people) {
   }
 
   // === DOUBLE HELIX ===
-  const helixRadius = 900;
-  const helixVerticalSpacing = 12;
+  const helixRadius = 700;
+  const helixVerticalSpacing = 10;
   
   for (let i = 0; i < objects.length; i++) {
     const obj = new THREE.Object3D();
@@ -151,7 +151,7 @@ function initPeople(people) {
     const personIndex = Math.floor(i / 2);
     
     // Calculate angle - each helix is offset by 180 degrees
-    const theta = (personIndex * 0.35) + Math.PI + (helixIndex * Math.PI);
+    const theta = (personIndex * 0.30) + Math.PI + (helixIndex * Math.PI);
     const y = -(i * helixVerticalSpacing) + 900;
     
     // Position on cylinder with offset for double helix
@@ -173,7 +173,7 @@ function initPeople(people) {
   const gridCols = 5;
   const gridRows = 4;
   const gridLayers = 10;
-  const gridSpacing = 600; // MUCH larger spacing - no overlap!
+  const gridSpacing = 400; // MUCH larger spacing - no overlap!
   
   for (let i = 0; i < objects.length; i++) {
     const obj = new THREE.Object3D();
