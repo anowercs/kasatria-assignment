@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Kasatria Access - Sign In</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Identity Services -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+  <div class="background-glow"></div>
+  
+  <div class="login-container">
+    <div class="logo-section">
+      <div class="logo-circle">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h1>Kasatria Access</h1>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="content-section">
+      <h2>Welcome Back</h2>
+      <p>Sign in to continue to your dashboard</p>
+
+      <!-- Google Sign-In Button Container -->
+      <div class="google-btn-wrapper">
+        <div id="google-btn"></div>
+      </div>
+
+      <!-- ALTERNATIVE: Uncomment below for a fully custom-styled button -->
+      <!-- 
+      <button class="custom-google-btn" onclick="googleSignIn()">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+        <span>Sign in with Google</span>
+      </button>
+      -->
+
+      <div class="features">
+        <div class="feature-item">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 15V17M6 21H18C19.1046 21 20 20.1046 20 19V13C20 11.8954 19.1046 11 18 11H6C4.89543 11 4 11.8954 4 13V19C4 20.1046 4.89543 21 6 21ZM16 11V7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7V11H16Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span>Secure Authentication</span>
+        </div>
+        <div class="feature-item">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13 10V3L4 14H11L11 21L20 10L13 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>Instant Access</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-text">
+      By signing in, you agree to our Terms of Service
+    </div>
+  </div>
+
+  <script src="login.js"></script>
+</body>
+</html>

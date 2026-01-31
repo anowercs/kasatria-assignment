@@ -1,3 +1,10 @@
+const user = localStorage.getItem("kasatria_user");
+
+if (!user) {
+  window.location.href = "login.html";
+}
+
+
 import * as THREE from "./threejs/three.module.js";
 import { CSS3DRenderer, CSS3DObject } from "./threejs/CSS3DRenderer.js";
 import { TrackballControls } from "./threejs/TrackballControls.js"; 
@@ -252,3 +259,16 @@ function render() {
   renderer.render(scene, camera);
 
 }
+
+// Log out Feature
+function setupLogout() {
+  const logoutBtn = document.getElementById("logout");
+  if (!logoutBtn) return;
+
+  logoutBtn.onclick = () => {
+    localStorage.removeItem("kasatria_user");
+    window.location.href = "login.html";
+  };
+}
+
+setupLogout();

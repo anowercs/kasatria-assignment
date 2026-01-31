@@ -1,0 +1,288 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0a1f1f 0%, #000000 100%);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  position: relative;
+  overflow: hidden;
+  padding: 20px;
+}
+
+/* Animated background glow */
+.background-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(0, 255, 255, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulse 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+.login-container {
+  background: rgba(10, 35, 35, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  padding: 50px 45px;
+  text-align: center;
+  color: #e0ffff;
+  border-radius: 24px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 0 80px rgba(0, 255, 255, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  max-width: 440px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  animation: slideIn 0.6s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Logo Section */
+.logo-section {
+  margin-bottom: 30px;
+}
+
+.logo-circle {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  background: linear-gradient(135deg, rgba(0, 255, 255, 0.2) 0%, rgba(0, 200, 200, 0.1) 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.logo-circle svg {
+  width: 40px;
+  height: 40px;
+  color: #00ffff;
+  filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.5));
+}
+
+.logo-section h1 {
+  font-size: 32px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #00ffff 0%, #00cccc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+
+/* Divider */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(0, 255, 255, 0.3) 50%, transparent 100%);
+  margin: 30px 0;
+}
+
+/* Content Section */
+.content-section {
+  margin-bottom: 30px;
+}
+
+.content-section h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.content-section p {
+  font-size: 15px;
+  color: rgba(224, 255, 255, 0.7);
+  margin-bottom: 35px;
+  line-height: 1.5;
+}
+
+/* Google Button Wrapper */
+.google-btn-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 35px;
+  padding: 0;
+  background: transparent;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+#google-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Style the Google button container to blend better */
+#google-btn > div {
+  display: flex !important;
+  justify-content: center !important;
+  margin: 0 auto !important;
+}
+
+#google-btn iframe {
+  filter: brightness(0.85) saturate(0.9);
+  transition: all 0.3s ease;
+}
+
+#google-btn:hover iframe {
+  filter: brightness(0.95) saturate(1);
+  transform: translateY(-2px);
+}
+
+/* Custom Google Sign-In Button */
+.custom-google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 24px;
+  background: rgba(15, 45, 45, 0.8);
+  border: 1.5px solid rgba(0, 255, 255, 0.3);
+  border-radius: 10px;
+  color: #e0ffff;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.custom-google-btn:hover {
+  background: rgba(20, 55, 55, 0.9);
+  border-color: rgba(0, 255, 255, 0.5);
+  box-shadow: 0 6px 20px rgba(0, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.custom-google-btn:active {
+  transform: translateY(0);
+}
+
+.custom-google-btn img {
+  width: 20px;
+  height: 20px;
+}
+
+/* Features */
+.features {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: rgba(224, 255, 255, 0.8);
+  padding: 8px 16px;
+  background: rgba(0, 255, 255, 0.05);
+  border-radius: 20px;
+  border: 1px solid rgba(0, 255, 255, 0.15);
+  transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+  background: rgba(0, 255, 255, 0.1);
+  border-color: rgba(0, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.feature-item svg {
+  width: 16px;
+  height: 16px;
+  color: #00ffff;
+}
+
+/* Footer Text */
+.footer-text {
+  font-size: 12px;
+  color: rgba(224, 255, 255, 0.5);
+  margin-top: 25px;
+  padding-top: 25px;
+  border-top: 1px solid rgba(0, 255, 255, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .login-container {
+    padding: 40px 30px;
+  }
+
+  .logo-section h1 {
+    font-size: 28px;
+  }
+
+  .content-section h2 {
+    font-size: 22px;
+  }
+
+  .features {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .feature-item {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Custom styling for Google button (optional override) */
+.google-btn-wrapper iframe {
+  border-radius: 8px !important;
+}
