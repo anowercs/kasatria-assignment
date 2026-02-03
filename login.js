@@ -1,5 +1,5 @@
 // 🔑 YOUR CLIENT ID
-const CLIENT_ID = "";
+const CLIENT_ID = "222902625901-4jogf2o0d677km1nnctjtarp1pejr9s8.apps.googleusercontent.com";
 
 // MUST be global (window.)
 window.handleGoogleLogin = function (response) {
@@ -37,7 +37,7 @@ function initGoogleLogin() {
       width: 280,
       text: "signin_with",
       shape: "rectangular",
-      logo_alignment: "left"
+      logo_alignment: "center"
     }
   );
 }

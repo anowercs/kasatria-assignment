@@ -11,8 +11,7 @@ import { TrackballControls } from "./threejs/TrackballControls.js";
 import {OrbitControls} from "./threejs/OrbitControls.js";
 import TWEEN from "./threejs/tween.module.min.js";
 
-let camera, scene, renderer;
-let controls;
+let camera, scene, renderer, controls;
 
 const objects = [];
 const targets = { table: [], sphere: [], helix: [], grid: [] };
